@@ -8,14 +8,14 @@ December 2
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My Resume</title>
+  <title>Resume | Melisa Gomila</title>
 
   <style>
     body {
       font-family: Arial, Helvetica, sans-serif;
       font-size: 15px;
       color: rgb(255, 150, 206);
-      line-height: 1.5;
+      line-height: 1.6;
       margin: 20px;
     }
 
@@ -28,118 +28,114 @@ December 2
       text-decoration: underline;
     }
 
-    h2, h4 {
-      margin: 10px 0;
+    h2, h3 {
+      color: rgb(220, 90, 150);
     }
 
     .nav {
-      margin-bottom: 18px;
+      margin-bottom: 20px;
     }
 
-    .toc a {
-      display: inline-block;
-      margin-right: 12px;
-      margin-bottom: 8px;
+    .section {
+      margin-bottom: 28px;
     }
 
-    .profile {
-      margin: 18px 0 10px 0;
-    }
-
-    .profile img {
-      border-radius: 8px;
-      display: block;
-      margin-bottom: 10px;
-    }
-
-    ol {
-      margin-top: 10px;
-      padding-left: 18px;
+    ul {
+      margin-top: 6px;
     }
 
     li {
-      font-size: 14px;
-      font-style: italic;
-      margin: 8px 0;
-    }
-
-    /* Make inner bullet items normal (not italic), so it’s easier to read */
-    ul li {
-      font-style: normal;
-      margin: 4px 0;
-    }
-
-    .backtop {
-      margin-top: 10px;
-      display: inline-block;
+      margin-bottom: 6px;
     }
   </style>
 </head>
 
 <body>
-  <!-- Top anchor -->
-  <nav>
-  <a href="index.html">Home</a> |
-  <a href="resume.html">Resume</a> |
-  <a href="aboutme.html">About Me</a> |
-  <a href="scratch.html">Scratch</a> |
-  <a href="app.html">Web App</a>
-</nav>
-
-
-  <!-- Table of contents / anchors -->
-  <div class="toc">
-    <strong>Jump to:</strong><br />
-    <a href="#edu">Education</a>
-    <a href="#exp">Experience</a>
-    <a href="#ski">Skills</a>
+  <!-- Navigation -->
+  <div class="nav" id="top">
+    <a href="index.html">Home</a> |
+    <a href="resume.html">Resume</a> |
+    <a href="aboutme.html">About Me</a> |
+    <a href="scratch.html">Scratch</a> |
+    <a href="app.html">Web App</a>
   </div>
 
-  <!-- Header -->
-  <div class="profile">
-    <img src="img/foto-small.jpg" height="150" alt="Photo of Melisa Gomila" />
-    <h2>Melisa Gomila</h2>
-    <p>
-      Graphic Designer<br />
-      BYU Provo<br />
-      Provo, Utah 84604
-    </p>
-    <p><strong>Mission Statement:</strong> My goal is to become a professional visual creator.</p>
+  <h2>Melisa Gomila</h2>
+  <p>
+    Graphic Design Student<br>
+    Brigham Young University – Provo, Utah
+  </p>
+
+  <p>
+    <strong>Professional Statement:</strong><br>
+    Creative and detail-oriented graphic design student with a passion for visual storytelling, branding,
+    and digital media. Experienced in design, content creation, and social media strategy with a strong
+    interest in connecting ideas and audiences through visuals.
+  </p>
+
+  <!-- Education -->
+  <div class="section" id="edu">
+    <h3>Education</h3>
+    <ul>
+      <li>
+        <strong>Brigham Young University</strong> — Provo, Utah<br>
+        <em>Bachelor of Fine Arts in Graphic Design (In Progress)</em><br>
+        Present
+        <ul>
+          <li>Focused on visual communication, branding, and digital design</li>
+          <li>Coursework includes graphic design principles, typography, layout, and web fundamentals</li>
+          <li>Experience using design software such as Adobe Illustrator, Photoshop, and Canva</li>
+          <li>Developing skills in creative problem-solving, visual storytelling, and user-focused design</li>
+        </ul>
+      </li>
+    </ul>
+    <p><a href="#top">Back to Top</a></p>
   </div>
 
-  <!-- Resume sections -->
-  <ol>
-    <li id="edu">
-      <strong>Education</strong>
-      <ul>
-        <li>Brigham Young University</li>
-      </ul>
-      <a class="backtop" href="#top">Back to Top</a>
-    </li>
+  <!-- Experience -->
+  <div class="section" id="exp">
+    <h3>Experience</h3>
+    <ul>
+      <li>
+        <strong>Graphic Designer</strong><br>
+        <ul>
+          <li>Designed visual assets such as graphics, layouts, and promotional materials</li>
+          <li>Created designs aligned with brand identity and project goals</li>
+          <li>Worked with color theory, typography, and composition to communicate ideas clearly</li>
+          <li>Revised designs based on feedback to improve clarity and visual impact</li>
+          <li>Managed multiple design tasks while meeting deadlines</li>
+        </ul>
+      </li>
 
-    <li id="exp">
-      <strong>Experience</strong>
-      <ul>
-        <li>Graphic Designer</li>
-        <li>Social Media Specialist</li>
-      </ul>
-      <a class="backtop" href="#top">Back to Top</a>
-    </li>
+      <li>
+        <strong>Social Media Specialist</strong><br>
+        <ul>
+          <li>Planned and created visual content for social media platforms</li>
+          <li>Developed consistent branding across posts and stories</li>
+          <li>Wrote captions and selected visuals to increase engagement</li>
+          <li>Analyzed audience interaction and adjusted content strategies accordingly</li>
+          <li>Collaborated with others to align social media presence with overall messaging</li>
+        </ul>
+      </li>
+    </ul>
+    <p><a href="#top">Back to Top</a></p>
+  </div>
 
-    <li id="ski">
-      <strong>Skills</strong>
-      <ul>
-        <li>Database Design Development</li>
-        <li>Entity Relationship Diagramming</li>
-        <li>Structured Query Language</li>
-        <li>Tableau</li>
-        <li>Excel Solver, Pivot Tables, and Charts</li>
-        <li>HTML, CSS, Bootstrap</li>
-        <li>Flow Chart Diagramming</li>
-        <li>Visual Basic for Applications (VBA) Programming in Excel</li>
-      </ul>
-      <a class="backtop" href="#top">Back to Top</a>
-    </li>
-  </ol>
+  <!-- Skills -->
+  <div class="section" id="ski">
+    <h3>Skills</h3>
+    <ul>
+      <li>Graphic Design & Visual Communication</li>
+      <li>Adobe Illustrator & Photoshop</li>
+      <li>Canva & Digital Content Creation</li>
+      <li>Typography, Color Theory, and Layout Design</li>
+      <li>HTML, CSS, and Bootstrap Basics</li>
+      <li>Social Media Content Strategy</li>
+      <li>Creative Problem Solving</li>
+      <li>Attention to Detail & Organization</li>
+    </ul>
+    <p><a href="#top">Back to Top</a></p>
+  </div>
+
 </body>
 </html>
