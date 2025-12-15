@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mini Wordle | Melisa Gomila</title>
+  <style>
+    body { font-family: Arial, Helvetica, sans-serif; background:#fff0f7; margin:0; color:#222; }
+    .wrap { max-width: 900px; margin: 0 auto; padding: 20px; }
+    .nav { background:#fff; padding:12px; border-radius:10px; margin-bottom:18px; border:1px solid #ffd1e7; }
+    .nav a { color:crimson; text-decoration:none; margin-right:8px; }
+    .nav a:hover { text-decoration:underline; }
+
+    h1 { margin: 10px 0 6px; }
+    .sub { color:#7a2a53; margin:0 0 16px; }
+
+    .card { background:#fff; border:1px solid #ffd1e7; border-radius:14px; padding:16px; margin: 16px 0; }
+    .row { display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+
+    .board { display:grid; gap:8px; justify-content:start; }
+    .guessRow { display:grid; grid-template-columns: repeat(5, 52px); gap:8px; }
+    .tile {
+      width:52px; height:52px; border-radius:10px;
+      display:flex; align-items:center; justify-content:center;
+      border:2px solid #ffd1e7; background:#fff7fb;
+      font-weight:700; font-size:18px; text-transform:uppercase;
+      user-select:none;
+    }
+    .tile.filled { background:#fff; }
+    .tile.correct { background:#c8f7d4; border-color:#9be7af; }
+    .tile.present { background:#ffe7a6; border-color:#ffd26a; }
+    .tile.absent  { background:#e9e9ef; border-color:#cfcfe0; }
+
+    .controls input {
+      padding:10px 12px; border-radius:10px; border:1px solid #ffd1e7;
+      font-size:16px; width: 180px;
+    }
+    button {
+      padding:10px 12px; border:none; border-radius:10px; cursor:pointer;
+      background:crimson; color:white; font-weight:700;
+    }
+    button:hover { opacity:0.92; }
+    button.secondary { background:#7a2a53; }
+
+    .msg { margin-top:10px; color:#7a2a53; min-height: 22px; }
+    .kbd { display:grid; gap:8px; margin-top:14px; }
+    .kbdRow { display:flex; gap:8px; flex-wrap:wrap; }
+    .key {
+      padding:10px 12px; border-radius:10px; border:1px solid #ffd1e7;
+      background:#fff; cursor:pointer; user-select:none; font-weight:700;
+      min-width: 34px; text-align:center;
+    }
+    .key.correct { background:#c8f7d4; border-color:#9be7af; }
+    .key.present { background:#ffe7a6; border-color:#ffd26a; }
+    .key.absent  { background:#e9e9ef; border-color:#cfcfe0; }
+
+    .stats { font-size:14px; color:#7a2a53; }
+    code { background:#fff7fb; padding:2px 6px; border-radius:6px; border:1px solid #ffd1e7; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="nav">
+      <a href="index.html">Home</a> |
+      <a href="resume.html">Resume</a> |
+      <a href="aboutme.html">About Me</a> |
+      <a href="scratch.html">Scratch</a> |
+      <a href="app.html">Web App</a>
+    </div>
+
+    <h1>Mini Wordle</h1>
+    <p class="sub">Guess the 5-letter word in 6 tries.</p>
+
+    <div class="card">
+      <div class="row controls">
+        <input id="guessInput" maxlength="5" placeholder="Type 5 letters" autocomplete="off" />
+        <button id="btnGuess">Guess</button>
+        <button id="btnNew" class="secondary">New Word</button>
+      </div>
+      <div class="msg" id="msg"></div>
+
+      <div class="board" id="board"></div>
+
+      <div class="kbd" id="kbd"></div>
+    </div>
+
+    <div class="card stats">
+      <div><strong>Tips:</strong> Press <code>Enter</code> to submit, <code>Backspace</code> to delete.</div>
+      <div id="stats"></div>
+    </div>
+  </div>
+
+  <script>
+    // Small built-in dictionary (no internet needed)
+    const WORDS = [
+      "SMILE","BRAVE","DREAM","STYLE","HEART","MUSIC","LIGHT","POWER","PIXEL","BRUSH",
+      "COLOR","SHAPE","TREND","UNITY","BOOST","SPARK","MAGIC","FAITH","HAPPY","LEMON",
+      "OCEAN","CLOUD","GRACE","ANGEL","SOLID","CRAFT","MOTIF","BLEND","FOCUS","GLOWY"
+    ];
+
+    const boardEl = document.getElementById("board");
+    const msgEl = document.getElementById("msg");
+    const inputEl = document.getElementById("guessInput");
+    const statsEl = document.getElementById("stats");
+
+    const btnGuess = document.getElementById("btnGuess");
+    const btnNew = document.getElementById("btnNew");
+
+    const kbdEl = document.getElementById("kbd");
+
+    let answer = "";
+    let row = 0;
+    let done = false;
+    let tiles = []; // 6 x 5
+
+    const KEY_ROWS = ["QWERTYUIOP","ASDFGHJKL","ZXCVBNM"];
+
+    function pickAnswer() {
+      answer = WORDS[Math.floor(Math.random() * WORDS.length)];
+    }
+
+    function buildBoard() {
+      boardEl.innerHTML = "";
+      tiles = [];
+      for (let r = 0; r < 6; r++) {
+        const rowEl = document.createElement("div");
+        rowEl.className = "guessRow";
+        const rowTiles = [];
+        for (let c = 0; c < 5; c++) {
+          const t = document.createElement("div");
+          t.className = "tile";
+          t.textContent = "";
+          rowEl.appendChild(t);
+          rowTiles.push(t);
+        }
+        boardEl.appendChild(rowEl);
+        tiles.push(rowTiles);
+      }
+    }
+
+    function buildKeyboard() {
+      kbdEl.innerHTML = "";
+      KEY_ROWS.forEach((letters, idx) => {
+        const rowEl = document.createElement("div");
+        rowEl.className = "kbdRow";
+
+        if (idx === 2) {
+          rowEl.appendChild(makeKey("ENTER", true));
+        }
+
+        [...letters].forEach(ch => rowEl.appendChild(makeKey(ch)));
+
+        if (idx === 2) {
+          rowEl.appendChild(makeKey("⌫", true));
+        }
+
+        kbdEl.appendChild(rowEl);
+      });
+    }
+
+    function makeKey(label, wide=false) {
+      const k = document.createElement("div");
+      k.className = "key";
+      k.textContent = label;
+      if (wide) k.style.minWidth = "64px";
+      k.addEventListener("click", () => onVirtualKey(label));
+      return k;
+    }
+
+    function setMessage(text) {
+      msgEl.textContent = text;
+    }
+
+    function normalizeGuess(g) {
+      return (g || "").toUpperCase().replace(/[^A-Z]/g, "");
+    }
+
+    function evaluateGuess(guess) {
+      // Wordle-style evaluation with letter counts
+      const res = Array(5).fill("absent");
+      const ansArr = answer.split("");
+      const gArr = guess.split("");
+
+      // First pass: correct
+      for (let i = 0; i < 5; i++) {
+        if (gArr[i] === ansArr[i]) {
+          res[i] = "correct";
+          ansArr[i] = null;
+          gArr[i] = null;
+        }
+      }
+      // Second pass: present
+      for (let i = 0; i < 5; i++) {
+        if (!gArr[i]) continue;
+        const idx = ansArr.indexOf(gArr[i]);
+        if (idx !== -1) {
+          res[i] = "present";
+          ansArr[idx] = null;
+        }
+      }
+      return res;
+    }
+
+    function applyRow(guess, evals) {
+      for (let i = 0; i < 5; i++) {
+        const t = tiles[row][i];
+        t.textContent = guess[i];
+        t.classList.add("filled");
+        t.classList.add(evals[i]);
+      }
+      colorKeyboard(guess, evals);
+    }
+
+    function colorKeyboard(guess, evals) {
+      // Keep best state: correct > present > absent
+      const priority = { correct: 3, present: 2, absent: 1 };
+      const keys = [...document.querySelectorAll(".key")];
+
+      for (let i = 0; i < 5; i++) {
+        const letter = guess[i];
+        const state = evals[i];
+        keys.forEach(k => {
+          if (k.textContent === letter) {
+            const current =
+              k.classList.contains("correct") ? "correct" :
+              k.classList.contains("present") ? "present" :
+              k.classList.contains("absent") ? "absent" : null;
+
+            if (!current || priority[state] > priority[current]) {
+              k.classList.remove("correct","present","absent");
+              k.classList.add(state);
+            }
+          }
+        });
+      }
+    }
+
+    function saveStats(win) {
+      const key = "mg_wordle_stats";
+      const s = JSON.parse(localStorage.getItem(key) || '{"played":0,"wins":0}');
+      s.played += 1;
+      if (win) s.wins += 1;
+      localStorage.setItem(key, JSON.stringify(s));
+      renderStats();
+    }
+
+    function renderStats() {
+      const s = JSON.parse(localStorage.getItem("mg_wordle_stats") || '{"played":0,"wins":0}');
+      const pct = s.played ? Math.round((s.wins / s.played) * 100) : 0;
+      statsEl.innerHTML = `<strong>Stats:</strong> Played: ${s.played} | Wins: ${s.wins} | Win rate: ${pct}%`;
+    }
+
+    function submitGuess() {
+      if (done) return;
+
+      const guess = normalizeGuess(inputEl.value);
+      if (guess.length !== 5) {
+        setMessage("Type exactly 5 letters.");
+        return;
+      }
+      if (!WORDS.includes(guess)) {
+        setMessage("Not in the mini dictionary. Try: SMILE, DREAM, STYLE, etc.");
+        return;
+      }
+
+      const evals = evaluateGuess(guess);
+      applyRow(guess, evals);
+
+      if (guess === answer) {
+        setMessage(`You got it! The word was ${answer}. 🎉`);
+        done = true;
+        saveStats(true);
+        return;
+      }
+
+      row++;
+      inputEl.value = "";
+      inputEl.focus();
+
+      if (row >= 6) {
+        setMessage(`Out of tries! The word was ${answer}.`);
+        done = true;
+        saveStats(false);
+      } else {
+        setMessage(`Try ${6 - row} more time(s).`);
+      }
+    }
+
+    function newGame() {
+      pickAnswer();
+      row = 0;
+      done = false;
+      setMessage("New word loaded. Good luck!");
+      buildBoard();
+      buildKeyboard();
+      inputEl.value = "";
+      inputEl.focus();
+    }
+
+    function onVirtualKey(label) {
+      if (done) return;
+
+      if (label === "ENTER") return submitGuess();
+      if (label === "⌫") {
+        inputEl.value = inputEl.value.slice(0, -1);
+        inputEl.focus();
+        return;
+      }
+      if (label.length === 1 && /[A-Z]/.test(label)) {
+        if (inputEl.value.length < 5) inputEl.value += label;
+        inputEl.focus();
+      }
+    }
+
+    // Keyboard events
+    document.addEventListener("keydown", (e) => {
+      if (done && e.key === "Enter") return;
+      if (e.key === "Enter") { e.preventDefault(); submitGuess(); }
+      else if (e.key === "Backspace") { /* allow normal */ }
+      else {
+        const ch = e.key.toUpperCase();
+        if (/^[A-Z]$/.test(ch) && inputEl.value.length < 5) inputEl.value += ch;
+      }
+    });
+
+    btnGuess.addEventListener("click", submitGuess);
+    btnNew.addEventListener("click", newGame);
+
+    renderStats();
+    newGame();
+  </script>
+</body>
+</html>

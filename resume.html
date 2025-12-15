@@ -1,0 +1,145 @@
+<!--
+Melisa Gomila
+IS 201
+December 2
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Resume</title>
+
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 15px;
+      color: rgb(255, 150, 206);
+      line-height: 1.5;
+      margin: 20px;
+    }
+
+    a {
+      color: crimson;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    h2, h4 {
+      margin: 10px 0;
+    }
+
+    .nav {
+      margin-bottom: 18px;
+    }
+
+    .toc a {
+      display: inline-block;
+      margin-right: 12px;
+      margin-bottom: 8px;
+    }
+
+    .profile {
+      margin: 18px 0 10px 0;
+    }
+
+    .profile img {
+      border-radius: 8px;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    ol {
+      margin-top: 10px;
+      padding-left: 18px;
+    }
+
+    li {
+      font-size: 14px;
+      font-style: italic;
+      margin: 8px 0;
+    }
+
+    /* Make inner bullet items normal (not italic), so it’s easier to read */
+    ul li {
+      font-style: normal;
+      margin: 4px 0;
+    }
+
+    .backtop {
+      margin-top: 10px;
+      display: inline-block;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Top anchor -->
+  <nav>
+  <a href="index.html">Home</a> |
+  <a href="resume.html">Resume</a> |
+  <a href="aboutme.html">About Me</a> |
+  <a href="scratch.html">Scratch</a> |
+  <a href="app.html">Web App</a>
+</nav>
+
+
+  <!-- Table of contents / anchors -->
+  <div class="toc">
+    <strong>Jump to:</strong><br />
+    <a href="#edu">Education</a>
+    <a href="#exp">Experience</a>
+    <a href="#ski">Skills</a>
+  </div>
+
+  <!-- Header -->
+  <div class="profile">
+    <img src="img/foto-small.jpg" height="150" alt="Photo of Melisa Gomila" />
+    <h2>Melisa Gomila</h2>
+    <p>
+      Graphic Designer<br />
+      BYU Provo<br />
+      Provo, Utah 84604
+    </p>
+    <p><strong>Mission Statement:</strong> My goal is to become a professional visual creator.</p>
+  </div>
+
+  <!-- Resume sections -->
+  <ol>
+    <li id="edu">
+      <strong>Education</strong>
+      <ul>
+        <li>Brigham Young University</li>
+      </ul>
+      <a class="backtop" href="#top">Back to Top</a>
+    </li>
+
+    <li id="exp">
+      <strong>Experience</strong>
+      <ul>
+        <li>Graphic Designer</li>
+        <li>Social Media Specialist</li>
+      </ul>
+      <a class="backtop" href="#top">Back to Top</a>
+    </li>
+
+    <li id="ski">
+      <strong>Skills</strong>
+      <ul>
+        <li>Database Design Development</li>
+        <li>Entity Relationship Diagramming</li>
+        <li>Structured Query Language</li>
+        <li>Tableau</li>
+        <li>Excel Solver, Pivot Tables, and Charts</li>
+        <li>HTML, CSS, Bootstrap</li>
+        <li>Flow Chart Diagramming</li>
+        <li>Visual Basic for Applications (VBA) Programming in Excel</li>
+      </ul>
+      <a class="backtop" href="#top">Back to Top</a>
+    </li>
+  </ol>
+</body>
+</html>

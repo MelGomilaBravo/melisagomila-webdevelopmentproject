@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Scratch Page | Melisa Gomila</title>
+
+  <!-- REQUIRED: external stylesheet you created -->
+  <link rel="stylesheet" href="css/scratch.css" />
+</head>
+
+<body>
+  <!-- On-page anchor target -->
+  <div id="top" class="container">
+
+    <!-- Nav back to professional pages -->
+<nav>
+  <a href="index.html">Home</a> |
+  <a href="resume.html">Resume</a> |
+  <a href="aboutme.html">About Me</a> |
+  <a href="scratch.html">Scratch</a> |
+  <a href="app.html">Web App</a>
+</nav>
+
+  </div>
+
+    <h1>Scratch Page: Visual Storytelling & Design</h1>
+    <p class="subtitle">
+      This page is built from a blank HTML file to demonstrate HTML + CSS skills.
+    </p>
+
+    <!-- Div #1 -->
+    <div class="card">
+      <h2>Quick Menu (On-page Anchor Demo)</h2>
+      <p>
+        <a href="#video">Jump to YouTube</a> |
+        <a href="#tableau">Jump to Tableau</a> |
+        <a href="#lists">Jump to Lists</a>
+      </p>
+    </div>
+
+    <!-- Div #2 -->
+    <div class="card">
+      <h2>My Inspiration</h2>
+      <p>
+        I love visual storytelling—design, photography, and how images can communicate emotions and ideas.
+      </p>
+
+      <!-- REQUIRED: at least one image not from Bootstrap theme -->
+      <!-- Put your image in /img and update the filename below -->
+      <img src="img/hobby.jpg" alt="My hobby image" width="300">
+
+      </p>
+    </div>
+
+    <!-- Div #3 -->
+    <div class="card" id="lists">
+      <h2>Lists Requirement: Nested List</h2>
+
+      <!-- REQUIRED: unordered list embedded in ordered list (or vice versa) -->
+      <ol>
+        <li>Design Tools I Use
+          <ul>
+            <li>Adobe Illustrator</li>
+            <li>Photoshop</li>
+            <li>Canva</li>
+          </ul>
+        </li>
+        <li>What I’m Learning Next
+          <ul>
+            <li>UI/UX fundamentals</li>
+            <li>Brand strategy</li>
+            <li>Motion graphics</li>
+          </ul>
+        </li>
+      </ol>
+
+      <p><a href="#top">Back to Top</a></p>
+    </div>
+
+    <!-- REQUIRED: YouTube embed -->
+<div class="card" id="video">
+  <h2>YouTube: Favorite Artist Song</h2>
+  <p>
+    This video is just to show the music I like.
+  </p>
+
+  <iframe
+  width="560"
+  height="315"
+  src="https://www.youtube-nocookie.com/embed/ysz5S6PUM-U"
+  title="YouTube video player"
+  frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowfullscreen>
+</iframe>
+
+
+  <p><a href="#top">Back to Top</a></p>
+</div>
+
+
+<div class="card" id="tableau">
+  <h2>Tableau: Global Concern for Mental Health</h2>
+  <p>
+    This interactive Tableau visualization explores global concern around mental health.
+  </p>
+
+  <!-- BEGIN TABLEAU EMBED -->
+  <div class='tableauPlaceholder' id='viz1765768116567' style='position: relative'>
+    <noscript>
+      <a href='#'>
+        <img alt='Mental Health Viz'
+             src='https://public.tableau.com/static/images/Mi/MindsforCare-GlobalConcernforMentalHealthB2VB-Week20/MentalHealthViz/1_rss.png'
+             style='border: none' />
+      </a>
+    </noscript>
+
+    <object class='tableauViz' style='display:none;'>
+      <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
+      <param name='embed_code_version' value='3' />
+      <param name='site_root' value='' />
+      <param name='name' value='MindsforCare-GlobalConcernforMentalHealthB2VB-Week20&#47;MentalHealthViz' />
+      <param name='tabs' value='no' />
+      <param name='toolbar' value='yes' />
+      <param name='static_image'
+             value='https://public.tableau.com/static/images/Mi/MindsforCare-GlobalConcernforMentalHealthB2VB-Week20/MentalHealthViz/1.png' />
+      <param name='animate_transition' value='yes' />
+      <param name='display_static_image' value='yes' />
+      <param name='display_spinner' value='yes' />
+      <param name='display_overlay' value='yes' />
+      <param name='display_count' value='yes' />
+      <param name='language' value='en-US' />
+    </object>
+  </div>
+
+  <script type='text/javascript'>
+    var divElement = document.getElementById('viz1765768116567');
+    var vizElement = divElement.getElementsByTagName('object')[0];
+
+    if (divElement.offsetWidth > 800) {
+      vizElement.style.width = '100%';
+      vizElement.style.height = '700px';
+    } else {
+      vizElement.style.width = '100%';
+      vizElement.style.height = '600px';
+    }
+
+    var scriptElement = document.createElement('script');
+    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
+    vizElement.parentNode.insertBefore(scriptElement, vizElement);
+  </script>
+  <!-- END TABLEAU EMBED -->
+
+  <p><a href="#top">Back to Top</a></p>
+</div>
+
+</body>
+</html>
